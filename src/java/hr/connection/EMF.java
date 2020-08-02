@@ -14,7 +14,7 @@ public class EMF {
     private EntityManagerFactory connFactory;
     private static EMF emf = new EMF();
     private EMF(){
-        connFactory = Persistence.createEntityManagerFactory("JPAPU");
+        connFactory = Persistence.createEntityManagerFactory("GestorEmpleadosPU");
     }
     public static EMF getInstance(){
         return emf;
