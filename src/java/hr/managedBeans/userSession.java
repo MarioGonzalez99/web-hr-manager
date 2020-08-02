@@ -5,6 +5,8 @@
  */
 package hr.managedBeans;
 
+import hr.jpa.controller.UsuarioJpaController;
+import hr.jpa.entity.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -18,25 +20,25 @@ import hr.model.ControllerUtilities;
 @Named(value = "userSession")
 @SessionScoped
 public class userSession implements Serializable {
-    
     User user;
-    private final String USERNAME = "luis";
-    private final String PASSWORD = "bitlab2020";
-    
+    UsuarioJpaController ucon;
     /**
      * Creates a new instance of userSession
      */
     public userSession(){
-        
+
     }
     
     @PostConstruct
     public void init() {
         user = new User();
+        ucon = new UsuarioJpaController();
+        
     }
     
     public void validation(){
-        if(USERNAME.equals(user.getUsername())&&PASSWORD.equals(user.getPassword())){
+        Usuario usr = ucon.findUsuario("mgonzalez");
+        if(usr.getUsrUser().equals(user.getUsername())&&usr.getUsrPassword().equals(user.getPassword())){
             ControllerUtilities.redirect("store");
         }else{
             ControllerUtilities.sendMessageWarn("Invalid user", "Invalid user or password");
