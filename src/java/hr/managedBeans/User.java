@@ -19,6 +19,7 @@ public class User implements Serializable {
 
     private String username;
     private String password;
+    private String rol;
     
     /**
      * Creates a new instance of User
@@ -41,6 +42,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
     
 }

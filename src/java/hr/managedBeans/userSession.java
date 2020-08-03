@@ -5,6 +5,7 @@
  */
 package hr.managedBeans;
 
+import hr.connection.EMF;
 import hr.jpa.controller.UsuarioJpaController;
 import hr.jpa.entity.Usuario;
 import javax.inject.Named;
@@ -12,6 +13,8 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import hr.model.ControllerUtilities;
+import hr.model.Decrypt;
+import javax.annotation.PreDestroy;
 
 /**
  *
@@ -36,18 +39,37 @@ public class userSession implements Serializable {
         
     }
     
-    public void validation(){
+    public void userValidation(){
+        boolean isNotValidUser = true;
         try{
-            Usuario usr = userController.findUsuario("mgonzalez");
-            if(usr.getUsrUser().equals(user.getUsername())&&usr.getUsrPassword().equals(user.getPassword())){
-                ControllerUtilities.redirect("store");
-            }else{
-                ControllerUtilities.sendMessageWarn("Invalid user", "Invalid user or password");
+            Usuario usr = userController.findUsuario(user.getUsername());
+            if(usr.getUsrUser()!=null){
+                if(Decrypt.decryptText(usr.getUsrPassword()).equals(user.getPassword())){
+                    user.setRol(usr.getUsrRol());
+                    ControllerUtilities.redirect("index");
+                    isNotValidUser = false;
+                }
+            }
+            if(isNotValidUser){
+                    ControllerUtilities.sendMessageWarn("Invalid user", "Invalid user or password");
             }
         }catch(NullPointerException ex){
-            ControllerUtilities.sendMessageWarn("Invalid user", "Invalid user or password");
-            ControllerUtilities.redirect("index");
+            ControllerUtilities.redirect("login");
         }
+        
+    }
+    
+    public void sessionValidation(){
+        if(user.getRol()==null){
+            ControllerUtilities.redirect("login");
+
+        }
+    }
+    
+    @PreDestroy
+    public void destruct()
+    {
+        EMF.getInstance().getEntityManagerFactory().close();
     }
     
     public User getUser() {
