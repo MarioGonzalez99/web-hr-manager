@@ -7,7 +7,11 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>index</title>
+        <title>Inicio de sesion</title>
+        <link rel="stylesheet" href="resources/css/login.css"/>        
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     </h:head>
 
     <h:body>
@@ -19,17 +23,70 @@
         </div>
 
         <div id="content" class="center_content">
-            <h:form>
-                <p:panel header="Inicio de sesion">
-                    <p:panelGrid columns="2">
-                        <h:outputText value="Username: " />
-                        <p:inputText id="username" value="#{userSession.user.username}"/>
-                        <h:outputText value="Password: " />
-                        <p:password id="password" value="#{userSession.user.password}" />
-                    </p:panelGrid>
-                    <p:commandButton value="Log-In" id="Log-in" actionListener="#{userSession.userValidation}" update=":messages :messagesAll"/>
-                </p:panel>
-            </h:form>
+            <section class="login-block">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 login-sec">
+                            <h2 class="text-center">HR Managment</h2>
+                            <h:form class="login-form">
+                                
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" class="text-uppercase"><h:outputText value="Usuario"/></label>
+                                    <p:inputText type="text" class="form-control" placeholder="" value="#{userSession.user.username}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1" class="text-uppercase"><h:outputText value="Contraseña" /></label>
+                                    <p:password class="form-control" placeholder="" value="#{userSession.user.password}" />
+                                </div>
+
+
+                                <p:commandButton value="Entrar" id="Log-in" class="btn btn-login float-right" actionListener="#{userSession.userValidation}" update=":messages :messagesAll"/>
+
+
+                            </h:form>
+                        </div>
+                        <div class="col-md-8 banner-sec">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="carousel-item active">
+                                        <img class="d-block img-fluid" src="https://images.pexels.com/photos/3727464/pexels-photo-3727464.jpeg" alt="First slide" />
+                                            <div class="carousel-caption d-none d-md-block">
+                                                <div class="banner-text">
+                                                    <h2>Bienvenido a HR Management</h2>
+                                                    <p>Este sitio web te permitira manejar la organizacion de tu empresa desde una interface interactiva y sencilla de utilizar</p>
+                                                </div>	
+                                            </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block img-fluid" src="https://images.pexels.com/photos/7097/people-coffee-tea-meeting.jpg" alt="First slide"/>
+                                            <div class="carousel-caption d-none d-md-block">
+                                                <div class="banner-text">
+                                                    <h2>Un nuevo enfoque</h2>
+                                                    <p>En HR Management operamos de una forma revolucionaria para entregarte el mejor servicio</p>
+                                                </div>	
+                                            </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block img-fluid" src="https://static.pexels.com/photos/33972/pexels-photo.jpg" alt="First slide"/>
+                                            <div class="carousel-caption d-none d-md-block">
+                                                <div class="banner-text">
+                                                    <h2>Un sistema completo</h2>
+                                                    <p>Con HR Management podras desde consultar los empleados de tu empresa hasta integrar nuevo personal de una manera sencilla y eficaz</p>
+                                                </div>	
+                                            </div>
+                                    </div>
+                                </div>	   
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+            </section>
             <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
             <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
                 <h:outputLabel value="...Loading..."/>
