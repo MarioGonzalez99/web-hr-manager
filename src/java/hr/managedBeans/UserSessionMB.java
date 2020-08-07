@@ -20,23 +20,22 @@ import javax.annotation.PreDestroy;
  *
  * @author Mario
  */
-@Named(value = "userSession")
+@Named(value = "userSessionMB")
 @SessionScoped
-public class userSession implements Serializable {
-    User user;
+public class UserSessionMB implements Serializable {
+    UserMB user;
     UsuarioJpaController userController;
     /**
      * Creates a new instance of userSession
      */
-    public userSession(){
+    public UserSessionMB(){
 
     }
     
     @PostConstruct
     public void init() {
-        user = new User();
+        user = new UserMB();
         userController = new UsuarioJpaController();
-        
     }
     
     public void userValidation(){
@@ -69,14 +68,14 @@ public class userSession implements Serializable {
     @PreDestroy
     public void destruct()
     {
-        EMF.getInstance().getEntityManagerFactory().close();
+        userController.getEntityManagerFactory().close();
     }
     
-    public User getUser() {
+    public UserMB getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserMB user) {
         this.user = user;
     }
 }

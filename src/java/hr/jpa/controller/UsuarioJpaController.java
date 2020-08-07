@@ -5,7 +5,6 @@
  */
 package hr.jpa.controller;
 
-import hr.connection.EMF;
 import hr.jpa.controller.exceptions.NonexistentEntityException;
 import hr.jpa.controller.exceptions.PreexistingEntityException;
 import hr.jpa.entity.Usuario;
@@ -15,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -25,15 +25,19 @@ import javax.persistence.criteria.Root;
 public class UsuarioJpaController implements Serializable {
     
     public UsuarioJpaController() {
-        EntityManagerFactory emfac = EMF.getInstance().getEntityManagerFactory();
-        this.emf = emfac;
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("GestorEmpleadosPU");
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-
+    
+    public EntityManagerFactory getEntityManagerFactory(){
+        return emf;
+    }
+    
     public void create(Usuario usuario) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {

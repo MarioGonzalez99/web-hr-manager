@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import hr.managedBeans.userSession;
+import hr.managedBeans.UserSessionMB;
 
 /**
  *
@@ -35,7 +35,7 @@ public class ControllerUtilities {
             ExternalContext context  = FacesContext.getCurrentInstance().getExternalContext();
             context.redirect(context.getRequestContextPath()+"/"+page+".echo");
         } catch (IOException ex) {
-            Logger.getLogger(userSession.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserSessionMB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

@@ -13,9 +13,9 @@ import java.io.Serializable;
  *
  * @author Mario
  */
-@Named(value = "user")
+@Named(value = "userMB")
 @SessionScoped
-public class User implements Serializable {
+public class UserMB implements Serializable {
 
     private String username;
     private String password;
@@ -25,7 +25,7 @@ public class User implements Serializable {
      * Creates a new instance of User
      */
     
-    public User() {
+    public UserMB() {
     }
 
     public String getUsername() {

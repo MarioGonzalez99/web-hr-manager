@@ -2,12 +2,8 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="GestorEmpleadosPU" transaction-type="JTA">
     <jta-data-source>jdbc/gestor-empleados</jta-data-source>
-    <class>hr.jpa.entity.Departamento</class>
-    <class>hr.jpa.entity.Empleado</class>
-    <class>hr.jpa.entity.EstadoEmpleado</class>
-    <class>hr.jpa.entity.Planilla</class>
-    <class>hr.jpa.entity.Usuario</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
     </properties>
   </persistence-unit>
