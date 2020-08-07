@@ -15,6 +15,9 @@ import javax.annotation.PostConstruct;
 import hr.model.ControllerUtilities;
 import hr.model.Decrypt;
 import javax.annotation.PreDestroy;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -23,59 +26,65 @@ import javax.annotation.PreDestroy;
 @Named(value = "userSessionMB")
 @SessionScoped
 public class UserSessionMB implements Serializable {
+
     UserMB user;
     UsuarioJpaController userController;
+
     /**
      * Creates a new instance of userSession
      */
-    public UserSessionMB(){
+    public UserSessionMB() {
 
     }
-    
+
     @PostConstruct
     public void init() {
         user = new UserMB();
         userController = new UsuarioJpaController();
     }
-    
-    public void userValidation(){
+
+    public void userValidation() {
         boolean isNotValidUser = true;
-        try{
+        try {
             Usuario usr = userController.findUsuario(user.getUsername());
-            if(usr.getUsrUser()!=null){
-                if(Decrypt.decryptText(usr.getUsrPassword()).equals(user.getPassword())){
+            if (usr.getUsrUser() != null) {
+                if (Decrypt.decryptText(usr.getUsrPassword()).equals(user.getPassword())) {
                     user.setRol(usr.getUsrRol());
                     ControllerUtilities.redirect("index");
                     isNotValidUser = false;
                 }
             }
-            if(isNotValidUser){
-                    ControllerUtilities.sendMessageWarn("Invalid user", "Invalid user or password");
+            if (isNotValidUser) {
+                ControllerUtilities.sendMessageWarn("Invalid user", "Invalid user or password");
             }
-        }catch(NullPointerException ex){
+        } catch (NullPointerException ex) {
             ControllerUtilities.redirect("login");
         }
-        
+
     }
-    
-    public void sessionValidation(){
-        if(user.getRol()==null){
+
+    public void sessionValidation() {
+        if (user.getRol() == null) {
             ControllerUtilities.redirect("login");
 
         }
     }
-    
+
     @PreDestroy
-    public void destruct()
-    {
+    public void destruct() {
         userController.getEntityManagerFactory().close();
     }
-    
+
     public UserMB getUser() {
         return user;
     }
 
     public void setUser(UserMB user) {
         this.user = user;
+    }
+
+    public void closeSession() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        ControllerUtilities.redirect("login");
     }
 }
