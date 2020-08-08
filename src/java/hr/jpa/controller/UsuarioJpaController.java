@@ -25,8 +25,8 @@ import javax.persistence.criteria.Root;
 public class UsuarioJpaController implements Serializable {
     
     public UsuarioJpaController() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("GestorEmpleadosPU");
-        this.emf = emf;
+        EntityManagerFactory emfac = Persistence.createEntityManagerFactory("GestorEmpleadosPU");
+        this.emf = emfac;
     }
     private EntityManagerFactory emf = null;
 

@@ -5,7 +5,6 @@
  */
 package hr.managedBeans;
 
-import hr.connection.EMF;
 import hr.jpa.controller.UsuarioJpaController;
 import hr.jpa.entity.Usuario;
 import javax.inject.Named;
@@ -15,9 +14,7 @@ import javax.annotation.PostConstruct;
 import hr.model.ControllerUtilities;
 import hr.model.Decrypt;
 import javax.annotation.PreDestroy;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 
 /**
  *

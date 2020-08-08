@@ -29,7 +29,7 @@ import javax.persistence.EntityManagerFactory;
  */
 public class EmpleadoJpaController implements Serializable {
 
-    public EmpleadoJpaController(EntityManagerFactory emf) {
+    public EmpleadoJpaController() {
         EntityManagerFactory emfac = EMF.getInstance().getEntityManagerFactory();
         this.emf = emfac;
     }
