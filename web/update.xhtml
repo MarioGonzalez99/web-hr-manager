@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -10,9 +12,146 @@
 
             <ui:define name="content">
                 <h:outputText value="Update Page"/>
+
+
+
+
+                <style type="text/css">
+                    .ui-datatable {
+                        margin-bottom: 25px
+                    }
+
+                    .ui-datatable .ui-datatable-header {
+                        text-align: right !important;
+                    }
+
+                    .ui-datatable-frozenlayout-left {
+                        width:10%;
+                    }
+
+                    .ui-datatable-frozenlayout-right {
+                        width:90%;
+                    }
+                </style>
+
+                <h:form>
+                    <p:dataTable var="employee" value="#{employeesMB.employees}" widgetVar="employeesTable" editable="true"
+                                 emptyMessage="No employees found with given criteria" filteredValue="#{employeesMB.employeesFiltered}"
+                                 scrollable="true" scrollHeight="450" scrollWidth="1150">
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Search all fields:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('employeesTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:ajax event="rowEdit" listener="#{employeesMB.onRowEdit}" update=":messages" />
+                        <p:ajax event="rowEditCancel" listener="#{employeesMB.onRowCancel}" update=":messages" />
+                        <p:column headerText="Actualizar" width="75">
+                            <p:rowEditor />
+                        </p:column>
+                        <p:column filterBy="#{employee.empId}" headerText="Id" width="100">
+                            <h:outputText value="#{employee.empId}" />
+                        </p:column>
+
+                        <p:column filterBy="#{employee.empNombre}" headerText="Nombre" width="100" >
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{employee.empNombre}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{employee.empNombre}"/>
+                                </f:facet>
+                            </p:cellEditor>    
+                        </p:column>
+
+                        <p:column filterBy="#{employee.empApellido}" headerText="Apellido" width="100">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{employee.empApellido}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{employee.empApellido}"/>
+                                </f:facet>
+                            </p:cellEditor>  
+
+                        </p:column>
+
+                        <p:column filterBy="#{employee.empGenero}" headerText="Genero" width="100">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{employee.empGenero}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{employee.empGenero}"/>
+                                </f:facet>
+                            </p:cellEditor>  
+                        </p:column>
+                        <p:column filterBy="#{employee.empCorreo}" headerText="Correo" width="200"  >
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{employee.empCorreo}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{employee.empCorreo}"/>
+                                </f:facet>
+                            </p:cellEditor> 
+                        </p:column>
+                        <p:column filterBy="#{employee.empFechaNacimiento}" headerText="Fecha de Nacimiento" width="220">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{employee.empFechaNacimiento}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{employee.empFechaNacimiento}"/>
+                                </f:facet>
+                            </p:cellEditor> 
+                        </p:column>
+                        <p:column filterBy="#{employee.empFechaContratacion}" headerText="Fecha de Contratacion" width="220" >
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{employee.empFechaContratacion}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{employee.empFechaContratacion}"/>
+                                </f:facet>
+                            </p:cellEditor> 
+                        </p:column>
+                        <p:column filterBy="#{employee.depNombre.depNombre}" headerText="Departamento" width="100" >
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{employee.depNombre.depNombre}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{employee.depNombre.depNombre}"/>
+                                </f:facet>
+                            </p:cellEditor> 
+                        </p:column>
+                        <p:column filterBy="#{employee.empIdJefe.empId}" headerText="Id Jefe" width="100">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{employee.empIdJefe.empId}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{employee.empIdJefe.empId}"/>
+                                </f:facet>
+                            </p:cellEditor> 
+                        </p:column>
+                        <p:column filterBy="#{employee.estId.nombre}" headerText="Estado" width="100">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{employee.estId.nombre}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{employee.estId.nombre}"/>
+                                </f:facet>
+                            </p:cellEditor> 
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
             </ui:define>
 
         </ui:composition>
-
     </body>
 </html>
