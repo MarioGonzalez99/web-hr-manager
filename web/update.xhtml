@@ -89,9 +89,11 @@
                                     <h:outputText value="#{employee.empGenero}" />
                                 </f:facet>
                                 <f:facet name="input">
-                                    <p:inputText value="#{employee.empGenero}">
-                                        <p:keyFilter regEx="/^[FM]$/"/>  
-                                    </p:inputText>
+                                    <p:selectOneMenu id="gender" value="#{employee.empGenero}">
+                                        <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItem itemLabel="M" itemValue="M"/>
+                                        <f:selectItem itemLabel="F" itemValue="F" />
+                                    </p:selectOneMenu> 
                                 </f:facet>
                             </p:cellEditor>  
                         </p:column>
@@ -133,9 +135,16 @@
                                     <h:outputText value="#{employee.depNombre.depNombre}" />
                                 </f:facet>
                                 <f:facet name="input">
-                                    <p:inputText value="#{employee.depNombre.depNombre}">
-                                        <p:keyFilter regEx="\b(Gerencia|RRHH|IT|Finanzas|Marketing|Operaciones)\b"/>  
-                                    </p:inputText>
+
+                                    <p:selectOneMenu id="department" value="#{employee.depNombre.depNombre}">
+                                        <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItem itemLabel="Gerencia" itemValue="Gerencia"/>
+                                        <f:selectItem itemLabel="RRHH" itemValue="RRHH" />
+                                        <f:selectItem itemLabel="IT" itemValue="IT" />
+                                        <f:selectItem itemLabel="Finanzas" itemValue="Finanzas" />
+                                        <f:selectItem itemLabel="Marketing" itemValue="Marketing" />
+                                        <f:selectItem itemLabel="Operaciones" itemValue="Operaciones" />
+                                    </p:selectOneMenu> 
                                 </f:facet>
                             </p:cellEditor> 
                         </p:column>
