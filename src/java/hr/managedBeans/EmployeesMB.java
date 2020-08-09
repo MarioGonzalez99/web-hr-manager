@@ -10,6 +10,7 @@ import hr.jpa.controller.exceptions.NonexistentEntityException;
 import hr.jpa.entity.Empleado;
 import hr.model.ControllerUtilities;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +19,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import org.primefaces.PrimeFaces;
 
 /**
@@ -31,6 +33,9 @@ public class EmployeesMB implements Serializable {
     /**
      * Creates a new instance of EmployeesMB
      */
+    @Inject
+    UserSessionMB user;
+    
     private EmpleadoJpaController employeeController;
 
     private List<Empleado> employees;
@@ -96,6 +101,8 @@ public class EmployeesMB implements Serializable {
     
     public void onRowEdit(Empleado employee){
         try {
+            employee.setAUsuarioModifica(user.getUser().getUsername());
+            employee.setAFechaModificacion(Calendar.getInstance().getTime());
             employeeController.edit(employee);
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(EmployeesMB.class.getName()).log(Level.SEVERE, null, ex);
