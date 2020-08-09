@@ -2,14 +2,78 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <body>
-
         <ui:composition template="./template.xhtml">
-
             <ui:define name="content">
+                <link href="resources/css/form.css" rel="stylesheet" type="text/css"/>
                 <h:outputText value="Hire Page"/>
+                <h3>Hire Page</h3>
+                <h:form >
+
+                    <div class="ui-fluid">
+                        <p:scrollPanel  style="height: 530px; width: 100%; border: none">
+                            <div class="field">
+                                <p:outputLabel for="firstname" value="Nombre" />
+                                <p:inputText id="firstname" />
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="lastname" value="Apellido" />
+                                <p:inputText id="lastname" />
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="gender" value="Genero" />
+                                <p:selectOneMenu id="gender">
+                                    <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="M" itemValue="M" />
+                                    <f:selectItem itemLabel="F" itemValue="F" />
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="email" value="Correo Electronico" />
+                                <p:inputText id="email" />
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="birthdate" value="Fecha de Nacimiento (yyyy-MM-dd)" />
+                                <p:inputMask id="birthdate" mask="9999-99-99"><f:convertDateTime type="date" pattern="yyyy-MM-dd"/></p:inputMask>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="hiredate" value="Fecha de Contratacion (yyyy-MM-dd)" />
+                                <p:inputMask id="hiredate" mask="9999-99-99"><f:convertDateTime type="date" pattern="yyyy-MM-dd"/></p:inputMask>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="department" value="Departamento" />
+                                <p:selectOneMenu id="department">
+                                    <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="Gerencia" itemValue="Gerencia"/>
+                                    <f:selectItem itemLabel="RRHH" itemValue="RRHH" />
+                                    <f:selectItem itemLabel="IT" itemValue="IT" />
+                                    <f:selectItem itemLabel="Finanzas" itemValue="Finanzas" />
+                                    <f:selectItem itemLabel="Marketing" itemValue="Marketing" />
+                                    <f:selectItem itemLabel="Operaciones" itemValue="Operaciones" />
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="bossId" value="Id del jefe" />
+                                <p:inputText id="bossId" >
+                                    <p:keyFilter regEx="/[\d\-]/"/>  
+                                </p:inputText>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="stateId" value="Id del estado" />
+                                <p:inputText id="stateId" >
+                                    <p:keyFilter regEx="/[\d\-]/"/>  
+                                </p:inputText>
+                            </div>
+
+                        </p:scrollPanel> 
+                    </div>
+                    <p:button value="Bookmark" icon="pi pi-star" style="margin-right:20px; margin-top: 20px">
+                        <f:param name="productId" value="10" />
+                    </p:button>
+                </h:form>
             </ui:define>
 
         </ui:composition>
