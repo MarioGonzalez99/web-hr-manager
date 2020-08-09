@@ -46,7 +46,7 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:ajax event="rowEdit" listener="#{employeesMB.onRowEdit}" update=":messages" />
+                        <p:ajax event="rowEdit" listener="#{employeesMB.onRowEdit(employee)}" update=":messages" />
                         <p:ajax event="rowEditCancel" listener="#{employeesMB.onRowCancel}" update=":messages" />
                         <p:column headerText="Actualizar" width="75">
                             <p:rowEditor />
@@ -61,7 +61,10 @@
                                     <h:outputText value="#{employee.empNombre}" />
                                 </f:facet>
                                 <f:facet name="input">
-                                    <h:inputText value="#{employee.empNombre}"/>
+                                    <p:inputText value="#{employee.empNombre}">
+                                        <p:keyFilter regEx="/[A-Z]/i"/>  
+                                    </p:inputText>
+
                                 </f:facet>
                             </p:cellEditor>    
                         </p:column>
@@ -72,7 +75,9 @@
                                     <h:outputText value="#{employee.empApellido}" />
                                 </f:facet>
                                 <f:facet name="input">
-                                    <h:inputText value="#{employee.empApellido}"/>
+                                    <p:inputText value="#{employee.empApellido}">
+                                        <p:keyFilter regEx="/[A-Z]/i"/>  
+                                    </p:inputText>
                                 </f:facet>
                             </p:cellEditor>  
 
@@ -84,7 +89,9 @@
                                     <h:outputText value="#{employee.empGenero}" />
                                 </f:facet>
                                 <f:facet name="input">
-                                    <h:inputText value="#{employee.empGenero}"/>
+                                    <p:inputText value="#{employee.empGenero}">
+                                        <p:keyFilter regEx="/^[FM]$/"/>  
+                                    </p:inputText>
                                 </f:facet>
                             </p:cellEditor>  
                         </p:column>
@@ -94,27 +101,29 @@
                                     <h:outputText value="#{employee.empCorreo}" />
                                 </f:facet>
                                 <f:facet name="input">
-                                    <h:inputText value="#{employee.empCorreo}"/>
+                                    <p:inputText value="#{employee.empCorreo}">
+                                        <p:keyFilter regEx="/[a-z0-9_\.\-@]/i"/>  
+                                    </p:inputText>
                                 </f:facet>
                             </p:cellEditor> 
                         </p:column>
-                        <p:column filterBy="#{employee.empFechaNacimiento}" headerText="Fecha de Nacimiento" width="220">
+                        <p:column filterBy="#{employee.empFechaNacimiento}" headerText="Fecha de Nacimiento" width="150">
                             <p:cellEditor>
                                 <f:facet name="output">
-                                    <h:outputText value="#{employee.empFechaNacimiento}" />
+                                    <h:outputText value="#{employee.empFechaNacimiento}" ><f:convertDateTime type="date" pattern="yyyy-MM-dd"/></h:outputText>
                                 </f:facet>
                                 <f:facet name="input">
-                                    <h:inputText value="#{employee.empFechaNacimiento}"/>
+                                    <p:inputText value="#{employee.empFechaNacimiento}"><f:convertDateTime type="date" pattern="yyyy-MM-dd"/></p:inputText>
                                 </f:facet>
                             </p:cellEditor> 
                         </p:column>
-                        <p:column filterBy="#{employee.empFechaContratacion}" headerText="Fecha de Contratacion" width="220" >
+                        <p:column filterBy="#{employee.empFechaContratacion}" headerText="Fecha de Contratacion" width="150" >
                             <p:cellEditor>
                                 <f:facet name="output">
-                                    <h:outputText value="#{employee.empFechaContratacion}" />
+                                    <h:outputText value="#{employee.empFechaContratacion}" ><f:convertDateTime type="date" pattern="yyyy-MM-dd"/></h:outputText>
                                 </f:facet>
                                 <f:facet name="input">
-                                    <h:inputText value="#{employee.empFechaContratacion}"/>
+                                    <p:inputText value="#{employee.empFechaContratacion}"><f:convertDateTime type="date" pattern="yyyy-MM-dd"/></p:inputText>
                                 </f:facet>
                             </p:cellEditor> 
                         </p:column>
@@ -124,7 +133,9 @@
                                     <h:outputText value="#{employee.depNombre.depNombre}" />
                                 </f:facet>
                                 <f:facet name="input">
-                                    <h:inputText value="#{employee.depNombre.depNombre}"/>
+                                    <p:inputText value="#{employee.depNombre.depNombre}">
+                                        <p:keyFilter regEx="\b(Gerencia|RRHH|IT|Finanzas|Marketing|Operaciones)\b"/>  
+                                    </p:inputText>
                                 </f:facet>
                             </p:cellEditor> 
                         </p:column>
@@ -134,19 +145,26 @@
                                     <h:outputText value="#{employee.empIdJefe.empId}" />
                                 </f:facet>
                                 <f:facet name="input">
-                                    <h:inputText value="#{employee.empIdJefe.empId}"/>
+                                    <p:inputText value="#{employee.empIdJefe.empId}">
+                                        <p:keyFilter regEx="/[\d\-]/"/>  
+                                    </p:inputText>
                                 </f:facet>
                             </p:cellEditor> 
                         </p:column>
-                        <p:column filterBy="#{employee.estId.nombre}" headerText="Estado" width="100">
+                        <p:column filterBy="#{employee.estId.nombre}" headerText="Id Estado" width="100">
                             <p:cellEditor>
                                 <f:facet name="output">
-                                    <h:outputText value="#{employee.estId.nombre}" />
+                                    <h:outputText value="#{employee.estId.estId}" />
                                 </f:facet>
                                 <f:facet name="input">
-                                    <h:inputText value="#{employee.estId.nombre}"/>
+                                    <p:inputText value="#{employee.estId.estId}">
+                                        <p:keyFilter regEx="/[\d\-]/"/>  
+                                    </p:inputText>
                                 </f:facet>
                             </p:cellEditor> 
+                        </p:column>
+                        <p:column filterBy="#{employee.estId.estId}" headerText="Estado" width="100">
+                            <h:outputText value="#{employee.estId.nombre}" />
                         </p:column>
                     </p:dataTable>
                 </h:form>

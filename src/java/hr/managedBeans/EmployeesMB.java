@@ -6,9 +6,13 @@
 package hr.managedBeans;
 
 import hr.jpa.controller.EmpleadoJpaController;
+import hr.jpa.controller.exceptions.NonexistentEntityException;
 import hr.jpa.entity.Empleado;
+import hr.model.ControllerUtilities;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -30,6 +34,7 @@ public class EmployeesMB implements Serializable {
     private EmpleadoJpaController employeeController;
 
     private List<Empleado> employees;
+    private List<Empleado> employeesFiltered;
     private Empleado selectedEmployee;
 
     public EmployeesMB() {
@@ -47,6 +52,14 @@ public class EmployeesMB implements Serializable {
 
     public void setEmployees(List<Empleado> employees) {
         this.employees = employees;
+    }
+
+    public List<Empleado> getEmployeesFiltered() {
+        return employeesFiltered;
+    }
+
+    public void setEmployeesFiltered(List<Empleado> employeesFiltered) {
+        this.employeesFiltered = employeesFiltered;
     }
 
     public Empleado getSelectedEmployee() {
@@ -69,5 +82,29 @@ public class EmployeesMB implements Serializable {
         FacesContext.getCurrentInstance()
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO, clientId + " multiview state has been cleared out", null));
+    }
+
+    public void updateSelectedEmployee() {
+        try {
+            employeeController.edit(selectedEmployee);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(EmployeesMB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(EmployeesMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void onRowEdit(Empleado employee){
+        try {
+            employeeController.edit(employee);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(EmployeesMB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(EmployeesMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ControllerUtilities.sendMessageInfo("Empleado actualizado", "Se ha actualizado correctamente al empleado");
+    }
+        public void onRowCancel(){
+        ControllerUtilities.sendMessageInfo("Actualizacion cancelada", "Se ha cancelado la actualizacion del empleado");
     }
 }

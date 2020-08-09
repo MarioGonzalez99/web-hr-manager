@@ -80,8 +80,20 @@
         </section>
 
         <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
-        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-            <h:outputLabel value="...Loading..."/>
+        <style>
+            .customDialog .ui-dialog-content.ui-widget-content, .customDialog .ui-dialog-titlebar.ui-widget-header{
+                background: transparent;
+                border: none;
+                min-width: 90px;
+                min-height: 80px;
+            }
+            body .ui-dialog{
+                box-shadow: none;
+
+            }
+        </style>
+        <p:dialog widgetVar="statusDialog"  modal="false" draggable="false" closable="false" resizable="false" showEffect="fade" responsive="true" position="right bottom" styleClass="customDialog">
+            <i class="pi pi-spin pi-spinner" style="font-size: 5em;"/>
         </p:dialog>
 
     </h:body>

@@ -63,8 +63,20 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     </ui:insert>
                     <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
-                    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                        <h:outputLabel value="...Loading..."/>
+                    <style>
+                        .customDialog .ui-dialog-content.ui-widget-content, .customDialog .ui-dialog-titlebar.ui-widget-header{
+                            background: transparent;
+                            border: none;
+                            min-width: 90px;
+                            min-height: 80px;
+                        }
+                        body .ui-dialog{
+                            box-shadow: none;
+
+                        }
+                    </style>
+                    <p:dialog widgetVar="statusDialog" modal="false" draggable="false" closable="false" resizable="false" showEffect="fade" responsive="true" position="right bottom" styleClass="customDialog">
+                        <i class="pi pi-spin pi-spinner" style="font-size: 5em;"/>
                     </p:dialog>
                 </div>
                 <p:growl id="messages" globalOnly="true" showDetail="true" showSummary="true" />
