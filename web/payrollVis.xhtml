@@ -71,10 +71,14 @@
 
 
                     </p:dataTable>
-                        <h:commandLink>
-                            <p:graphicImage url="/resources/images/pdf.png" width="24"/>
-                            <p:dataExporter type="pdf" target="table" fileName="payroll" pageOnly="true"/>
-                        </h:commandLink>
+                    <h:commandLink style="margin-right: 20px">
+                        <p:graphicImage url="/resources/images/pdf.png" width="24"/>
+                        <p:dataExporter type="pdf" target="table" fileName="payroll" pageOnly="true"/>
+                    </h:commandLink>
+                    <h:commandLink>
+                        <p:graphicImage url="/resources/images/excel.png" width="24"/>
+                        <p:dataExporter type="xls" target="table" fileName="payroll" pageOnly="true"/>
+                    </h:commandLink>
                 </h:form>
             </ui:define>
 
