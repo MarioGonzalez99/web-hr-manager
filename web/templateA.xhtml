@@ -8,7 +8,7 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Sesion Usuario</title>
+        <title>Sesion Admin</title>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet"/>
@@ -17,7 +17,7 @@
     </h:head>
 
     <h:body>
-        <f:event listener="#{userSessionMB.sessionValidation()}" type="preRenderView"/>
+        <f:event listener="#{userSessionMB.sessionValidationA()}" type="preRenderView"/>
         <div id="menu" class="menu">
 
 
@@ -32,19 +32,25 @@
                     <h1><a href="index.echo" class="logo">HR Manager</a></h1>
                     <ul class="list-unstyled components mb-5">
                         <li class="active">
-                            <a href="index.echo"><span class="fa fa-home mr-3"></span> Inicio</a>
+                            <a href="indexA.echo"><span class="fa fa-home mr-3"></span> Inicio</a>
                         </li>
                         <li>
-                            <a href="update.echo"><h:outputText class="fa fa-user mr-3" /> Actualizacion de Datos del Empleado</a>
+                            <a href="createUser.echo"><h:outputText class="fa fa-user mr-3" /> Creacion de Usuario</a>
                         </li>
                         <li>
-                            <a href="hire.echo"><h:outputText class="fa fa-user mr-3"/> Contratacion de Empleado</a>
+                            <a href="updateUser.echo"><h:outputText class="fa fa-user mr-3"/> Actualizacion de Usuario</a>
                         </li>
                         <li>
-                            <a href="payrollAsign.echo"><h:outputText class="fa fa-sticky-note mr-3"/> Asignacion de planilla</a>
+                            <a href="createDep.echo"><h:outputText class="fa fa-sticky-note mr-3"/> Creacion de Departamentos</a>
                         </li>
                         <li>
-                            <a href="payrollVis.echo"><h:outputText class="fa fa-sticky-note mr-3"/> Visualizacion de planilla</a>
+                            <a href="UpdateDep.echo"><h:outputText class="fa fa-sticky-note mr-3"/> Actualizacion de Departamentos</a>
+                        </li>
+                        <li>
+                            <a href="createState.echo"><h:outputText class="fa fa-sticky-note mr-3"/> Creacion de Estados</a>
+                        </li>
+                        <li>
+                            <a href="updateState.echo"><h:outputText class="fa fa-sticky-note mr-3"/> Actualizacion de Estados</a>
                         </li>
                         <li>
                             <h:form>

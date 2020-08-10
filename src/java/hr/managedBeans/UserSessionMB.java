@@ -47,7 +47,11 @@ public class UserSessionMB implements Serializable {
             if (usr.getUsrUser() != null) {
                 if (Decrypt.decryptText(usr.getUsrPassword()).equals(user.getPassword())) {
                     user.setRol(usr.getUsrRol());
-                    ControllerUtilities.redirect("index");
+                    if(user.getRol().toUpperCase().startsWith("A")){
+                        ControllerUtilities.redirect("indexA");
+                    }else{
+                        ControllerUtilities.redirect("index");
+                    }
                     isNotValidUser = false;
                 }
             }
@@ -66,7 +70,13 @@ public class UserSessionMB implements Serializable {
 
         }
     }
-
+    
+    public void sessionValidationA() {
+        if (user.getRol() == null || !user.getRol().toUpperCase().startsWith("A")) {
+            ControllerUtilities.redirect("login");
+        } 
+    }
+    
     @PreDestroy
     public void destruct() {
         userController.getEntityManagerFactory().close();
