@@ -11,68 +11,86 @@
                 <link href="resources/css/form.css" rel="stylesheet" type="text/css"/>
                 <h:outputText value="Hire Page"/>
                 <h3>Hire Page</h3>
-                <h:form >
-
+                <h:form>
                     <div class="ui-fluid">
-                        <p:scrollPanel  style="height: 530px; width: 100%; border: none">
-                            <div class="field">
-                                <p:outputLabel for="firstname" value="Nombre" />
-                                <p:inputText id="firstname" />
-                            </div>
-                            <div class="field">
-                                <p:outputLabel for="lastname" value="Apellido" />
-                                <p:inputText id="lastname" />
-                            </div>
-                            <div class="field">
-                                <p:outputLabel for="gender" value="Genero" />
-                                <p:selectOneMenu id="gender">
-                                    <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true"/>
-                                    <f:selectItem itemLabel="M" itemValue="M" />
-                                    <f:selectItem itemLabel="F" itemValue="F" />
-                                </p:selectOneMenu>
-                            </div>
-                            <div class="field">
-                                <p:outputLabel for="email" value="Correo Electronico" />
-                                <p:inputText id="email" />
-                            </div>
-                            <div class="field">
-                                <p:outputLabel for="birthdate" value="Fecha de Nacimiento (yyyy-MM-dd)" />
-                                <p:inputMask id="birthdate" mask="9999-99-99"><f:convertDateTime type="date" pattern="yyyy-MM-dd"/></p:inputMask>
-                            </div>
-                            <div class="field">
-                                <p:outputLabel for="hiredate" value="Fecha de Contratacion (yyyy-MM-dd)" />
-                                <p:inputMask id="hiredate" mask="9999-99-99"><f:convertDateTime type="date" pattern="yyyy-MM-dd"/></p:inputMask>
-                            </div>
-                            <div class="field">
-                                <p:outputLabel for="department" value="Departamento" />
-                                <p:selectOneMenu id="department">
-                                    <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true"/>
-                                    <f:selectItem itemLabel="Gerencia" itemValue="Gerencia"/>
-                                    <f:selectItem itemLabel="RRHH" itemValue="RRHH" />
-                                    <f:selectItem itemLabel="IT" itemValue="IT" />
-                                    <f:selectItem itemLabel="Finanzas" itemValue="Finanzas" />
-                                    <f:selectItem itemLabel="Marketing" itemValue="Marketing" />
-                                    <f:selectItem itemLabel="Operaciones" itemValue="Operaciones" />
-                                </p:selectOneMenu>
-                            </div>
-                            <div class="field">
-                                <p:outputLabel for="bossId" value="Id del jefe" />
-                                <p:inputText id="bossId" >
-                                    <p:keyFilter regEx="/[\d\-]/"/>  
-                                </p:inputText>
-                            </div>
-                            <div class="field">
-                                <p:outputLabel for="stateId" value="Id del estado" />
-                                <p:inputText id="stateId" >
-                                    <p:keyFilter regEx="/[\d\-]/"/>  
-                                </p:inputText>
-                            </div>
+                        <p:panel header="Empleado">
+                            
+                            <h:panelGrid columns="4" cellpadding="7">
 
-                        </p:scrollPanel> 
+                                    <div class="field">
+                                        <p:outputLabel for="firstname" value="Nombre" />
+                                        <p:inputText id="firstname" value="#{employeeCreationMB.employee.empNombre}" required="true" requiredMessage="Ingrese un nombre"/>
+                                        <p:message for="firstname"  />
+  
+                                    </div>
+                                    <div class="field">
+                                        <p:outputLabel for="lastname" value="Apellido" />
+                                        <p:inputText id="lastname" value="#{employeeCreationMB.employee.empApellido}" required="true" requiredMessage="Ingrese un apellido"/>
+                                        <p:message for="lastname"/>
+                                    </div>
+                                    <div class="field">
+                                        <p:outputLabel for="gender" value="Genero" />
+                                        <p:selectOneMenu id="gender" value="#{employeeCreationMB.employee.empGenero}" required="true" requiredMessage="Seleccione un Genero">
+                                            <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItem itemLabel="M" itemValue="M" />
+                                            <f:selectItem itemLabel="F" itemValue="F" />
+                                        </p:selectOneMenu>
+                                        <p:message for="gender"/>
+                                    </div>
+                                    <div class="field">
+                                        <p:outputLabel for="email" value="Correo Electronico" />
+                                        <p:inputText id="email" value="#{employeeCreationMB.employee.empCorreo}" required="true" requiredMessage="Ingrese un correo" validatorMessage="Correo electronico no valido">
+                                            <f:validateRegex pattern="^[A-Za-z0-9+_.-]+@(.+)$"/>
+                                            <p:clientValidator event="keyup"/>
+                                        </p:inputText>
+                                        <p:message for="email"/>
+                                    </div>
+                                    <div class="field">
+                                        <p:outputLabel for="birthdate" value="Fecha de Nacimiento (yyyy-MM-dd)" />
+                                        <p:inputMask id="birthdate" mask="9999-99-99" value="#{employeeCreationMB.employee.empFechaNacimiento}" required="true" requiredMessage="Ingrese una fecha"><f:convertDateTime type="date" pattern="yyyy-MM-dd"/></p:inputMask>
+                                        <p:message for="birthdate"/>
+                                    </div>
+                                    <div class="field">
+                                        <p:outputLabel for="hiredate" value="Fecha de Contratacion (yyyy-MM-dd)" />
+                                        <p:inputMask id="hiredate" mask="9999-99-99" value="#{employeeCreationMB.employee.empFechaContratacion}" required="true" requiredMessage="Ingrese una fecha"><f:convertDateTime type="date" pattern="yyyy-MM-dd"/></p:inputMask>
+                                        <p:message for="hiredate"/>
+                                    </div>
+                                    <div class="field">
+                                        <p:outputLabel for="department" value="Departamento"/>
+                                        <p:selectOneMenu id="department" value="#{employeeCreationMB.employee.depNombre.depNombre}" required="true" requiredMessage="Seleccione un departamento">
+                                            <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItem itemLabel="Gerencia" itemValue="Gerencia"/>
+                                            <f:selectItem itemLabel="RRHH" itemValue="RRHH" />
+                                            <f:selectItem itemLabel="IT" itemValue="IT" />
+                                            <f:selectItem itemLabel="Finanzas" itemValue="Finanzas" />
+                                            <f:selectItem itemLabel="Marketing" itemValue="Marketing" />
+                                            <f:selectItem itemLabel="Operaciones" itemValue="Operaciones" />
+                                        </p:selectOneMenu>
+                                        <p:message for="department"/>
+                                    </div>
+                                    <div class="field">
+                                        <p:outputLabel for="bossId" value="Id del jefe" />
+                                        <p:inputText id="bossId" value="#{employeeCreationMB.employee.empIdJefe.empId}" required="true"  requiredMessage="Seleccione un numero" validatorMessage="Numero no valido">
+                                            <p:keyFilter regEx="/[\d\-]/"/>  
+                                            <f:validateDoubleRange minimum="1" maximum="#{employeesMB.employees.size()}"/>
+                                            <p:clientValidator event="keyup"/>
+                                        </p:inputText>
+                                        <p:message for="bossId"/>
+                                    </div>
+                                    <div class="field">
+                                        <p:outputLabel for="stateId" value="Estado (Activo/Inactivo)" />
+                                        <p:selectOneMenu id="stateId" value="#{employeeCreationMB.employee.estId.estId}" required="true" requiredMessage="Seleccione un estado">
+                                            <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItem itemLabel="A" itemValue="A" />
+                                            <f:selectItem itemLabel="I" itemValue="I" />
+                                        </p:selectOneMenu>
+                                        <p:message for="stateId"/>
+                                    </div>
+                                <p:commandButton value="Ingresar Empleado" ajax="false" actionListener="#{employeeCreationMB.createNewEmployee()}" update=":messages" style="margin-top: 20px" validateClient="true"/>
+                                <p:commandButton value="Reset" type="reset" style="margin-top: 20px; margin-right: 20px"/>
+                            </h:panelGrid>
+                        </p:panel>
                     </div>
-                    <p:button value="Bookmark" icon="pi pi-star" style="margin-right:20px; margin-top: 20px">
-                        <f:param name="productId" value="10" />
-                    </p:button>
                 </h:form>
             </ui:define>
 
