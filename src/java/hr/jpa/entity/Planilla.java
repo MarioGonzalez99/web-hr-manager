@@ -78,6 +78,27 @@ public class Planilla implements Serializable {
     public Planilla(int empId, Date planFechaPlanilla) {
         this.planillaPK = new PlanillaPK(empId, planFechaPlanilla);
     }
+    
+    public Planilla(int empId, Date planFechaPlanilla, BigDecimal planSalarioBase) {
+        this.planillaPK = new PlanillaPK(empId, planFechaPlanilla);
+        this.empleado = new Empleado(empId);
+        this.planSalarioBase = planSalarioBase;
+        BigDecimal afpTax = new BigDecimal("0.0725");
+        this.planMontoDescuentoAfp = this.planSalarioBase.multiply(afpTax);
+        BigDecimal isssTax = new BigDecimal("0.03");
+        this.planMontoDescuentoIsss = this.planSalarioBase.multiply(isssTax);
+        BigDecimal intermediateSalary = this.planSalarioBase.subtract(this.planMontoDescuentoAfp).subtract(this.planMontoDescuentoIsss);
+        if(this.planSalarioBase.compareTo(new BigDecimal("472.01"))==-1){
+            this.planMontoDescuentoRenta = new BigDecimal("0");
+        }else if(this.planSalarioBase.compareTo(new BigDecimal("472.01"))>=0 && this.planSalarioBase.compareTo(new BigDecimal("895.25"))==-1){
+            this.planMontoDescuentoRenta = intermediateSalary.multiply(new BigDecimal("0.1"));
+        }else if(this.planSalarioBase.compareTo(new BigDecimal("895.251"))>=0 && this.planSalarioBase.compareTo(new BigDecimal("2038.11"))==-1){
+            this.planMontoDescuentoRenta = intermediateSalary.multiply(new BigDecimal("0.2"));
+        }else{
+            this.planMontoDescuentoRenta = intermediateSalary.multiply(new BigDecimal("0.3"));
+        }
+        this.planSalarioNeto = this.planSalarioBase.subtract(this.planMontoDescuentoAfp).subtract(this.planMontoDescuentoIsss).subtract(this.planMontoDescuentoRenta);
+    }
 
     public PlanillaPK getPlanillaPK() {
         return planillaPK;
