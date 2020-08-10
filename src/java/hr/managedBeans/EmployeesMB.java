@@ -32,7 +32,7 @@ public class EmployeesMB implements Serializable {
      */
     @Inject
     UserSessionMB user;
-    
+
     private EmpleadoJpaController employeeController;
 
     private List<Empleado> employees;
@@ -62,8 +62,8 @@ public class EmployeesMB implements Serializable {
     public void setEmployeesFiltered(List<Empleado> employeesFiltered) {
         this.employeesFiltered = employeesFiltered;
     }
-    
-    public void onRowEdit(Empleado employee){
+
+    public void onRowEdit(Empleado employee) {
         try {
             employee.setAUsuarioModifica(user.getUser().getUsername());
             employee.setAFechaModificacion(Calendar.getInstance().getTime());
@@ -75,8 +75,9 @@ public class EmployeesMB implements Serializable {
         }
         ControllerUtilities.sendMessageInfo("Empleado actualizado", "Se ha actualizado correctamente al empleado");
     }
-        public void onRowCancel(){
+
+    public void onRowCancel() {
         ControllerUtilities.sendMessageInfo("Actualizacion cancelada", "Se ha cancelado la actualizacion del empleado");
     }
-        
+
 }

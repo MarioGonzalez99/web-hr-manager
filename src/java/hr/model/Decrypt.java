@@ -17,7 +17,7 @@ import org.jasypt.util.text.BasicTextEncryptor;
  * @author Mario
  */
 public class Decrypt {
-    public static String decryptText(String encryptedText){
+    private static BasicTextEncryptor loadKey(){
         Properties encryptProps = new Properties();
         try(InputStream propertyFile = ConfigProperties.getResourceAsInputStream("encryptKey.properties")){
             encryptProps.load(propertyFile);
@@ -27,6 +27,14 @@ public class Decrypt {
         String key = encryptProps.getProperty("key");
         BasicTextEncryptor decrypter = new BasicTextEncryptor();
         decrypter.setPassword(key);
+        return decrypter;
+    }
+    public static String decryptText(String encryptedText){
+        BasicTextEncryptor decrypter = loadKey();
         return decrypter.decrypt(encryptedText);
+    }
+    public static String encryptText(String decryptedText){
+        BasicTextEncryptor encrypter = loadKey();
+        return encrypter.encrypt(decryptedText);
     }
 }

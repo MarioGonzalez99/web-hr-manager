@@ -88,11 +88,11 @@ public class Planilla implements Serializable {
         BigDecimal isssTax = new BigDecimal("0.03");
         this.planMontoDescuentoIsss = this.planSalarioBase.multiply(isssTax);
         BigDecimal intermediateSalary = this.planSalarioBase.subtract(this.planMontoDescuentoAfp).subtract(this.planMontoDescuentoIsss);
-        if(this.planSalarioBase.compareTo(new BigDecimal("472.01"))==-1){
+        if(this.planSalarioBase.compareTo(new BigDecimal("472.01"))<0){
             this.planMontoDescuentoRenta = new BigDecimal("0");
-        }else if(this.planSalarioBase.compareTo(new BigDecimal("472.01"))>=0 && this.planSalarioBase.compareTo(new BigDecimal("895.25"))==-1){
+        }else if(this.planSalarioBase.compareTo(new BigDecimal("472.01"))>=0 && this.planSalarioBase.compareTo(new BigDecimal("895.25"))<0){
             this.planMontoDescuentoRenta = intermediateSalary.multiply(new BigDecimal("0.1"));
-        }else if(this.planSalarioBase.compareTo(new BigDecimal("895.251"))>=0 && this.planSalarioBase.compareTo(new BigDecimal("2038.11"))==-1){
+        }else if(this.planSalarioBase.compareTo(new BigDecimal("895.251"))>=0 && this.planSalarioBase.compareTo(new BigDecimal("2038.11"))<0){
             this.planMontoDescuentoRenta = intermediateSalary.multiply(new BigDecimal("0.2"));
         }else{
             this.planMontoDescuentoRenta = intermediateSalary.multiply(new BigDecimal("0.3"));

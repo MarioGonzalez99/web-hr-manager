@@ -1,14 +1,89 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
 
         <ui:composition template="./templateA.xhtml">
 
             <ui:define name="content">
-                content
+                <h3>Update User Page</h3>
+
+                <style type="text/css">
+                    .ui-datatable {
+                        margin-bottom: 25px
+                    }
+
+                    .ui-datatable .ui-datatable-header {
+                        text-align: right !important;
+                    }
+
+                    .ui-datatable-frozenlayout-left {
+                        width:10%;
+                    }
+
+                    .ui-datatable-frozenlayout-right {
+                        width:90%;
+                    }
+                </style>
+
+                <h:form>
+                    <p:dataTable var="user" value="#{userUpdateMB.users}" widgetVar="usersTable" editable="true"
+                                 emptyMessage="No users found with given criteria" filteredValue="#{userUpdateMB.filteredUsers}"
+                                 scrollable="true" scrollHeight="420" scrollWidth="1150">
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Search all fields:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('usersTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:ajax event="rowEdit" listener="#{userUpdateMB.onRowEdit(user)}" update=":messages" />
+                        <p:ajax event="rowEditCancel" listener="#{userUpdateMB.onRowCancel}" update=":messages" />
+                        <p:column headerText="Actualizar" width="75">
+                            <p:rowEditor />
+                        </p:column>
+
+                        <p:column filterBy="#{user.usrUser}" headerText="Nombre de Usuario" width="100" >
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{user.usrUser}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{user.usrUser}">
+                                        <p:keyFilter regEx="/[A-Za-z0-9]/i"/>  
+                                    </p:inputText>
+
+                                </f:facet>
+                            </p:cellEditor>    
+                        </p:column>
+
+                        <p:column filterBy="#{user.usrPassword}" headerText="Contraseña de Usuario" width="100">
+                            <h:outputText value="#{user.usrPassword}" /> 
+                        </p:column>
+
+                        <p:column filterBy="#{user.usrRol}" headerText="Rol de Usuario" width="100">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{user.usrRol}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:selectOneMenu id="rol" value="#{user.usrRol}">
+                                        <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItem itemLabel="Admin" itemValue="Admin"/>
+                                        <f:selectItem itemLabel="RRHH" itemValue="RRHH" />
+                                    </p:selectOneMenu> 
+                                </f:facet>
+                            </p:cellEditor>  
+                        </p:column>
+                        
+                    </p:dataTable>
+                </h:form>
             </ui:define>
 
         </ui:composition>
