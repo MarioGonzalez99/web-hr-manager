@@ -15,12 +15,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -40,7 +37,6 @@ public class EmployeesMB implements Serializable {
 
     private List<Empleado> employees;
     private List<Empleado> employeesFiltered;
-    private Empleado selectedEmployee;
 
     public EmployeesMB() {
     }
@@ -66,38 +62,6 @@ public class EmployeesMB implements Serializable {
     public void setEmployeesFiltered(List<Empleado> employeesFiltered) {
         this.employeesFiltered = employeesFiltered;
     }
-
-    public Empleado getSelectedEmployee() {
-        return selectedEmployee;
-    }
-
-    public void setSelectedEmployee(Empleado selectedEmployee) {
-        this.selectedEmployee = selectedEmployee;
-    }
-
-    public void clearMultiViewState() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        String viewId = context.getViewRoot().getViewId();
-        PrimeFaces.current().multiViewState().clearAll(viewId, true, (clientId) -> {
-            showMessage(clientId);
-        });
-    }
-
-    private void showMessage(String clientId) {
-        FacesContext.getCurrentInstance()
-                .addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_INFO, clientId + " multiview state has been cleared out", null));
-    }
-
-    public void updateSelectedEmployee() {
-        try {
-            employeeController.edit(selectedEmployee);
-        } catch (NonexistentEntityException ex) {
-            Logger.getLogger(EmployeesMB.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(EmployeesMB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     
     public void onRowEdit(Empleado employee){
         try {
@@ -114,4 +78,5 @@ public class EmployeesMB implements Serializable {
         public void onRowCancel(){
         ControllerUtilities.sendMessageInfo("Actualizacion cancelada", "Se ha cancelado la actualizacion del empleado");
     }
+        
 }
