@@ -35,8 +35,8 @@
                                 <div>
                                     <p:outputLabel for="salary" value="Salario Mensual Base" />
                                     <p:inputText id="salary" value="#{payrollMB.salary}" required="true"  requiredMessage="Seleccione un numero" validatorMessage="Numero no valido">
-                                        <p:keyFilter regEx="/[\d\-]/"/>  
-                                        <f:validateDoubleRange minimum="300"/>
+                                        <p:keyFilter regEx="/[\d\-.]/"/>  
+                                        <f:validateDoubleRange minimum="100.00" maximum="99999.99"/>
                                         <p:clientValidator event="keyup"/>
                                     </p:inputText>
                                     <p:message for="salary"/>
