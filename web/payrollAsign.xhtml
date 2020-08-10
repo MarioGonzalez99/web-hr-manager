@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+                <h:outputText value="Payroll Asignation"/>
+                <h3>Payroll Asignation Page</h3>
+                <h:form>
+                    <div class="ui-fluid">
+                        <p:panel header="Planilla">
+
+                            <h:panelGrid columns="4" cellpadding="7">
+                                <div>
+                                    <p:outputLabel for="empId" value="Id del empleado" />
+                                    <p:inputText id="empId" value="#{payrollMB.employeeId}" required="true"  requiredMessage="Seleccione un numero" validatorMessage="Numero no valido">
+                                        <p:keyFilter regEx="/[\d\-]/"/>  
+                                        <f:validateDoubleRange minimum="1" maximum="#{employeesMB.employees.size()}"/>
+                                        <p:clientValidator event="keyup"/>
+                                    </p:inputText>
+                                    <p:message for="empId"/>
+                                </div>
+                                <div>
+                                    <p:outputLabel for="paydate" value="Fecha de Pago (yyyy-MM-dd)" />
+                                    <p:inputMask id="paydate" mask="9999-99-99" value="#{payrollMB.paydate}" required="true" requiredMessage="Ingrese una fecha"><f:convertDateTime type="date" pattern="yyyy-MM-dd"/></p:inputMask>
+                                    <p:message for="paydate"/>
+                                </div>
+                                <div>
+                                    <p:outputLabel for="salary" value="Salario Mensual Base" />
+                                    <p:inputText id="salary" value="#{payrollMB.salary}" required="true"  requiredMessage="Seleccione un numero" validatorMessage="Numero no valido">
+                                        <p:keyFilter regEx="/[\d\-]/"/>  
+                                        <f:validateDoubleRange minimum="300"/>
+                                        <p:clientValidator event="keyup"/>
+                                    </p:inputText>
+                                    <p:message for="salary"/>
+                                </div>
+                                <p:commandButton value="Asignar Planilla" ajax="false" actionListener="#{payrollMB.assignPayroll()}" update=":messages" style="margin-top: 20px" validateClient="true"/>
+                                <p:commandButton value="Reset" type="reset" style="margin-top: 20px; margin-right: 20px"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
